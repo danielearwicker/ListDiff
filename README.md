@@ -14,10 +14,12 @@ e.g. one overriding `Equals`.
 My purpose for this is to be able to compare two lists of objects, `A` and `B`, and get a short description of 
 how to modify `A` to make it the same as `B`.
 
-There is a single public method to call, `ListDiff.Compare`:
+There is a single public method to call in the `ListDiff` namespace, `ListDiff.Compare`:
 
 ```csharp
-var diff = ListDiff.Compare(list1, list2);
+using static ListDiff.ListDiff;
+
+var diff = Compare(list1, list2);
 ```
 
 The returned sequence is of `Diff` objects, like this:
@@ -38,4 +40,43 @@ public enum Operation
 }
 ```
 
-That is the complete API.
+That is the complete API. So for example:
+
+```csharp
+using System;
+using static ListDiff.ListDiff;
+
+namespace DiffThing
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var diffs = Compare(
+                "The quick brown fox jumped over the dog".ToCharArray(),
+                "The quack brown animal jumped the lazy dog".ToCharArray());
+
+            foreach (var diff in diffs)
+            {
+                Console.WriteLine(diff);
+            }
+        }
+    }
+}
+```
+
+This prints:
+
+```
+Diff(Equal,"The qu")
+Diff(Delete,"i")
+Diff(Insert,"a")
+Diff(Equal,"ck brown ")
+Diff(Delete,"fox")
+Diff(Insert,"animal")
+Diff(Equal," jumped ")
+Diff(Delete,"over ")
+Diff(Equal,"the")
+Diff(Insert," lazy")
+Diff(Equal," dog")
+```
