@@ -1,11 +1,7 @@
 # ListDiff
-C# algorithm for diffing two lists of objects. The implementation and tests are heavily based on:
-
-    https://github.com/lqc/google-diff-match-patch
-
-originally Google project, based at:
-
-    https://code.google.com/p/google-diff-match-patch/
+C# algorithm for diffing two lists of objects. The implementation and tests are heavily based on
+[Google's Diff-Match-Patch](https://github.com/lqc/google-diff-match-patch) - that's a 3rd party mirror of the
+code that was [originally hosted here](https://code.google.com/p/google-diff-match-patch/).
 
 I've removed all the patching/merging stuff and anything specific to text, so what remains is generalised to
 support comparing two `IReadOnlyList<T>` where T can be any type comparable with `EqualityComparer<T>.Default`,
